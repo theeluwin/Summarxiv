@@ -22,9 +22,10 @@ Edit `topic2query.json` file.
 
 ### Environment Setting
 
-`.env` file:
+Create a new `.env` file containing:
 
 ```
+OPENAI_MODEL=gpt-4o-mini
 OPENAI_API_KEY=openai_api_key
 EMAIL_ADDRESS=sender_email@email.com
 EMAIL_PASSWORD=gmail_app_password
