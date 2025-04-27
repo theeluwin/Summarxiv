@@ -1,0 +1,13 @@
+Please read the contents of the paper provided as Title and Content below carefully and summarize them according to the 'following items'. However, you do not need to use a lot of fancy language. Please organize them well so that they are short and concise but contain all the necessary information. Use a short sentence style, and organize them in the form of an HTML block that is easy to read when sending via email. Considering that you will be sending these blocks in groups of 10, please write them inside a <div> tag and return only the HTML code. The 'following items' are as follows:
+
+  1. Research background and motivation
+  2. Problem definition
+  3. Core idea
+  4. Contribution points (up to 3)
+  5. Experimental setup (main dataset and main baseline, briefly)
+
+Title: {title}
+
+Content:
+
+{content}

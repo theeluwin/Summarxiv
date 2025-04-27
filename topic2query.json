@@ -1,0 +1,5 @@
+{
+    "RecSys": "cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR AND (\"recommendation\" OR \"recommender\")",
+    "LLM": "cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR AND (\"large language model\" OR \"LLM\")",
+    "XAI": "cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR AND (\"explainable\" OR \"interpretable\" OR \"XAI\" OR \"explainability\" OR \"interpretability\")"
+}
