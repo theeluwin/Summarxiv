@@ -2,7 +2,7 @@ Please read the contents of the paper provided as Title and Content below carefu
 
   1. Research background and motivation
   2. Problem definition
-  3. Core idea
+  3. Core idea (detail enough to understand to principle)
   4. Contribution points (up to 3)
   5. Experimental setup (main dataset and main baseline, briefly)
 

@@ -30,7 +30,6 @@ now = datetime.now
 
 # constants
 OPENAI_MODEL = str(os.getenv('OPENAI_MODEL', 'gpt-4o-mini'))
-NUM_PAPERS = int(os.getenv('NUM_PAPERS', 10))
 PAGE_LIMIT = int(os.getenv('PAGE_LIMIT', 8))
 MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 12000))
 EVERYDAY_AT = str(os.getenv('EVERYDAY_AT', '00:00'))
@@ -105,14 +104,18 @@ def send_email(subject, content, send_to):
 
 
 def daily_arxiv_digest():
-    with open('topic2query.json', 'r') as fpi:
-        topic2query = json.load(fpi)
+    with open('config.json', 'r') as fpi:
+        config = json.load(fpi)
     with open(TEMPLATE_DIR / 'block.html', 'r') as fpi:
         block = fpi.read()
-    for topic, query in topic2query.items():
+    for row in config:
+        topic = row['topic']
+        query = row['query']
+        receivers = row['receivers']
+        num_papers = row['num_papers']
         html = ""
         log(f"searching for {query}...")
-        papers = search_recent_papers(query, num_papers=NUM_PAPERS)
+        papers = search_recent_papers(query, num_papers=num_papers)
         log(f"found {len(papers)} papers")
         for index, paper in enumerate(papers):
             log(f"[{index + 1:2d}/{len(papers):2d}] working on {paper.entry_id}...")
@@ -128,7 +131,9 @@ def daily_arxiv_digest():
                 log("- summary failed (UnicodeEncodeError)")
                 continue
         log("sending email...")
-        send_email(f"Daily ArXiv {topic} Papers Digest", html, os.getenv('SEND_TO'))
+        for receiver in receivers:
+            log(f"- sending to {receiver}")
+            send_email(f"Daily ArXiv {topic} Papers Digest", html, receiver)
         log("done!")
 
 

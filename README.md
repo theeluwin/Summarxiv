@@ -8,15 +8,25 @@ Search arXiv with given query, fetch recent papers, summarize it, and send it to
 
 Edit `prompt.txt` file.
 
-### Query
+### Quering & Mail To
 
-Edit `topic2query.json` file.
+Edit `config.json` file.
 
 ```json
-{
-    "Recommendation": "\"recommendation\" OR \"recommender\""
-}
+[
+    {
+        "topic": "RecSys",
+        "query": "(cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND (\"recommendation\" OR \"recommender\")",
+        "num_papers": 5,
+        "receivers": [
+            "test@test.com"
+        ]
+    }
+]
 ```
+
+* `topic` is just a verbose title
+* `query` will be applied to arXiv API.
 
 ---
 
@@ -31,20 +41,18 @@ EMAIL_ADDRESS=sender_email@email.com
 EMAIL_PASSWORD=gmail_app_password
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
-SEND_TO=receiver_email@email.com
-NUM_PAPERS=10
 PAGE_LIMIT=8
 MAX_CONTENT_LENGTH=120000
-EVERYDAY_AT=23:00
+EVERYDAY_AT=08:00
 ```
 
-`EVERYDAY_AT` should consider timezone (GMT+0 by default, maybe).
+`EVERYDAY_AT` should consider timezone (see your server's setting).
 
 ### Gmail App Password
 
 See [gmail apppasswords](https://myaccount.google.com/apppasswords).
 
-Remove blanks.
+Remove blanks (16-characters).
 
 ### OpenAI API Key
 
