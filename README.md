@@ -60,6 +60,13 @@ See [API Keys](https://platform.openai.com/api-keys).
 
 ---
 
+### Install
+
+```bash
+uv sync
+source .venv/bin/activate
+```
+
 ### Run:
 
 ```bash
