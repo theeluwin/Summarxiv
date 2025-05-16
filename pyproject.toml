@@ -12,5 +12,6 @@ dependencies = [
     "pypdf",
     "email-validator",
     "python-dotenv",
-    "pyyaml"
+    "pyyaml",
+    "pytz>=2025.2",
 ]
