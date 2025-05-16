@@ -33,6 +33,7 @@ now = datetime.now
 OPENAI_MODEL = str(os.getenv('OPENAI_MODEL', 'gpt-4o-mini'))
 PAGE_LIMIT = int(os.getenv('PAGE_LIMIT', 8))
 MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 12000))
+TIMEZONE = str(os.getenv('TIMEZONE', 'UTC'))
 EVERYDAY_AT = str(os.getenv('EVERYDAY_AT', '00:00'))
 
 # paths
@@ -144,7 +145,7 @@ def main():
     parser.add_argument('--prompt', type=str, default='templates/prompt.txt', help='Path to the prompt file')
     args = parser.parse_args()
 
-    schedule.every().day.at(EVERYDAY_AT).do(daily_arxiv_digest, args.config, args.prompt)  # UTC (GMT+0)
+    schedule.every().day.at(EVERYDAY_AT, TIMEZONE).do(daily_arxiv_digest, args.config, args.prompt)
     log("scheduler started")
     while True:
         schedule.run_pending()

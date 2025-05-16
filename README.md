@@ -44,6 +44,7 @@ SMTP_PORT=587
 PAGE_LIMIT=8
 MAX_CONTENT_LENGTH=120000
 EVERYDAY_AT=08:00
+TIMEZONE=Asia/Seoul
 ```
 
 `EVERYDAY_AT` should consider timezone (see your server's setting).
