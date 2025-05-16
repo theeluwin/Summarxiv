@@ -2,6 +2,7 @@ import os
 import yaml
 import time
 import smtplib
+import argparse
 
 import arxiv  # type: ignore
 import requests  # type: ignore
@@ -79,8 +80,8 @@ def chat(message):
     return response.choices[0].message.content.strip()
 
 
-def summarize(title, content, max_content_length=12000):
-    with open(TEMPLATE_DIR / 'prompt.txt', 'r') as fpi:
+def summarize(title, content, prompt_file, max_content_length=12000):
+    with open(prompt_file, 'r') as fpi:
         template = fpi.read()
     content = content[:max_content_length]
     return chat(template.format(title=title, content=content))
@@ -103,8 +104,8 @@ def send_email(subject, content, send_to):
     server.quit()
 
 
-def daily_arxiv_digest():
-    with open('config.yaml', 'r') as fpi:
+def daily_arxiv_digest(config_file: str, prompt_file: str):
+    with open(config_file, 'r') as fpi:
         config = yaml.safe_load(fpi)
     with open(TEMPLATE_DIR / 'block.html', 'r') as fpi:
         block = fpi.read()
@@ -125,7 +126,7 @@ def daily_arxiv_digest():
             content = url2content(pdf_url, page_limit=PAGE_LIMIT)
             log("- summarizing")
             try:
-                summary = summarize(title, content, MAX_CONTENT_LENGTH).strip('```').strip('html').strip()
+                summary = summarize(title, content, prompt_file, MAX_CONTENT_LENGTH).strip('```').strip('html').strip()
                 html += block.format(href=paper.entry_id, title=title, summary=summary)
             except UnicodeEncodeError:
                 log("- summary failed (UnicodeEncodeError)")
@@ -137,9 +138,18 @@ def daily_arxiv_digest():
         log("done!")
 
 
-if __name__ == '__main__':
-    schedule.every().day.at(EVERYDAY_AT).do(daily_arxiv_digest)  # UTC (GMT+0)
+def main():
+    parser = argparse.ArgumentParser(description='Daily ArXiv Digest')
+    parser.add_argument('--config', type=str, default='config.yaml', help='Path to the config file')
+    parser.add_argument('--prompt', type=str, default='templates/prompt.txt', help='Path to the prompt file')
+    args = parser.parse_args()
+
+    schedule.every().day.at(EVERYDAY_AT).do(daily_arxiv_digest, args.config, args.prompt)  # UTC (GMT+0)
     log("scheduler started")
     while True:
         schedule.run_pending()
         time.sleep(31)  # gcd(60, 31) = 1
+
+
+if __name__ == '__main__':
+    main()
