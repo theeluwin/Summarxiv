@@ -1,0 +1,5 @@
+- topic: RecSys
+  query: (cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND ("recommendation" OR "recommender")
+  num_papers: 5
+  receivers:
+    - test@test.com
