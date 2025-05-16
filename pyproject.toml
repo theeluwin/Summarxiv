@@ -2,7 +2,7 @@
 name = "daily-paper-summary-digest"
 version = "0.1.0"
 description = "A project for daily paper summary digest"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 
 dependencies = [
     "arxiv",
@@ -11,6 +11,6 @@ dependencies = [
     "openai",
     "pypdf",
     "email-validator",
-    "python-dotenv"
+    "python-dotenv",
+    "pyyaml"
 ]
-
