@@ -1,5 +1,5 @@
 import os
-import json
+import yaml
 import time
 import smtplib
 
@@ -104,8 +104,8 @@ def send_email(subject, content, send_to):
 
 
 def daily_arxiv_digest():
-    with open('config.json', 'r') as fpi:
-        config = json.load(fpi)
+    with open('config.yaml', 'r') as fpi:
+        config = yaml.safe_load(fpi)
     with open(TEMPLATE_DIR / 'block.html', 'r') as fpi:
         block = fpi.read()
     for row in config:
