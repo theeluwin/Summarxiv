@@ -10,19 +10,14 @@ Edit `prompt.txt` file.
 
 ### Quering & Mail To
 
-Edit `config.json` file.
+Edit `config.yaml` file.
 
-```json
-[
-    {
-        "topic": "RecSys",
-        "query": "(cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND (\"recommendation\" OR \"recommender\")",
-        "num_papers": 5,
-        "receivers": [
-            "test@test.com"
-        ]
-    }
-]
+```yaml
+- topic: RecSys
+  query: (cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND ("recommendation" OR "recommender")
+  num_papers: 5
+  receivers:
+    - test@test.com
 ```
 
 * `topic` is just a verbose title
@@ -47,8 +42,6 @@ EVERYDAY_AT=08:00
 TIMEZONE=Asia/Seoul
 ```
 
-`EVERYDAY_AT` should consider timezone (see your server's setting).
-
 ### Gmail App Password
 
 See [gmail apppasswords](https://myaccount.google.com/apppasswords).
@@ -61,16 +54,11 @@ See [API Keys](https://platform.openai.com/api-keys).
 
 ---
 
-### Install
+### Run:
 
 ```bash
 uv sync
 source .venv/bin/activate
-```
-
-### Run:
-
-```bash
 nohup python -u entry.py >> output.log 2>&1 &
 ```
 
