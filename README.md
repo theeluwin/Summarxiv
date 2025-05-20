@@ -27,9 +27,11 @@ Edit `config.yaml` file.
 
 ### Environment Setting
 
-Create a new `.env` file containing:
+Rename `.env.example` to `.env` and edit it.
 
-```
+The file contains the following variables:
+
+```bash
 OPENAI_MODEL=gpt-4o-mini
 OPENAI_API_KEY=openai_api_key
 EMAIL_ADDRESS=sender_email@email.com
@@ -66,4 +68,11 @@ To see logs:
 
 ```bash
 tail -f output.log
+```
+
+To use Docker:
+
+```bash
+docker build -t daily-paper-summary-digest .
+docker run -d --name daily-paper-summary-digest --env-file .env -p 587:587 -v $(pwd)/config.yaml:/app/config.yaml -v $(pwd)/templates/prompt.txt:/app/templates/prompt.txt daily-paper-summary-digest
 ```

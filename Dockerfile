@@ -5,4 +5,5 @@ ADD . /app
 WORKDIR /app
 RUN uv sync --locked
 
-CMD ["uv", "run", "entry.py"]
+EXPOSE 587
+CMD ["uv", "run", "entry.py", "--config", "config.yaml", "--prompt", "templates/prompt.txt"]
