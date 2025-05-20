@@ -5,3 +5,5 @@ openai
 pypdf
 email-validator
 python-dotenv
+pyyaml
+pytz
