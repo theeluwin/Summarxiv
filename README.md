@@ -31,7 +31,7 @@ Rename `.env.example` to `.env` and edit it.
 
 The file contains the following variables:
 
-```bash
+```txt
 LLM_MODEL=openai/gpt-4o-mini
 OPENAI_API_KEY=openai_api_key
 EMAIL_ADDRESS=sender_email@email.com
@@ -46,9 +46,9 @@ TIMEZONE=Asia/Seoul
 
 If you want to use claude instead of openai, set as follows:
 
-```bash
+```txt
 LLM_MODEL=anthropic/claude-3-sonnet-20240229
-ANTHROPIC_API_KEY=anthropic_api_key
+ANTHROPIC_API_KEY=anthropic_api_key    <-- This line changes!
 EMAIL_ADDRESS=sender_email@email.com
 EMAIL_PASSWORD=gmail_app_password
 SMTP_SERVER=smtp.gmail.com
