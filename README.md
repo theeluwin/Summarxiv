@@ -32,7 +32,7 @@ Rename `.env.example` to `.env` and edit it.
 The file contains the following variables:
 
 ```bash
-OPENAI_MODEL=gpt-4o-mini
+LLM_MODEL=openai/gpt-4o-mini
 OPENAI_API_KEY=openai_api_key
 EMAIL_ADDRESS=sender_email@email.com
 EMAIL_PASSWORD=gmail_app_password
@@ -43,6 +43,23 @@ MAX_CONTENT_LENGTH=120000
 EVERYDAY_AT=08:00
 TIMEZONE=Asia/Seoul
 ```
+
+If you want to use claude instead of openai, set as follows:
+
+```bash
+LLM_MODEL=anthropic/claude-3-sonnet-20240229
+ANTHROPIC_API_KEY=anthropic_api_key
+EMAIL_ADDRESS=sender_email@email.com
+EMAIL_PASSWORD=gmail_app_password
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+PAGE_LIMIT=8
+MAX_CONTENT_LENGTH=120000
+EVERYDAY_AT=08:00
+TIMEZONE=Asia/Seoul
+```
+
+For the other providers, please see litellm docs [litellm](https://docs.litellm.ai/docs/#litellm-python-sdk)
 
 ### Gmail App Password
 

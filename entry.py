@@ -13,7 +13,7 @@ from pathlib import Path
 from datetime import datetime
 
 from pypdf import PdfReader
-from openai import OpenAI
+from litellm import completion
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -24,13 +24,12 @@ load_dotenv()
 
 # clients
 arxiv_client = arxiv.Client()
-openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # alias
 now = datetime.now
 
 # constants
-OPENAI_MODEL = str(os.getenv('OPENAI_MODEL', 'gpt-4o-mini'))
+LLM_MODEL = str(os.getenv('LLM_MODEL', 'openai/gpt-4o-mini'))
 PAGE_LIMIT = int(os.getenv('PAGE_LIMIT', 8))
 MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 12000))
 TIMEZONE = str(os.getenv('TIMEZONE', 'UTC'))
@@ -70,8 +69,8 @@ def url2content(url, page_limit=8):
 
 
 def chat(message):
-    response = openai_client.chat.completions.create(
-        model=OPENAI_MODEL,
+    response = completion(
+        model=LLM_MODEL,
         messages=[{
             'role': 'user',
             'content': message,
