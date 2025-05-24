@@ -1,0 +1,18 @@
+[project]
+name = "daily-paper-summary-digest"
+version = "0.1.0"
+description = "A project for daily paper summary digest"
+requires-python = ">=3.10"
+
+dependencies = [
+    "arxiv",
+    "requests",
+    "schedule",
+    "openai",
+    "pypdf",
+    "email-validator",
+    "python-dotenv",
+    "pyyaml",
+    "pytz>=2025.2",
+    "litellm>=1.70.0",
+]

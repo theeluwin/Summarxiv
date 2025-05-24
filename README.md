@@ -10,19 +10,14 @@ Edit `prompt.txt` file.
 
 ### Quering & Mail To
 
-Edit `config.json` file.
+Edit `config.yaml` file.
 
-```json
-[
-    {
-        "topic": "RecSys",
-        "query": "(cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND (\"recommendation\" OR \"recommender\")",
-        "num_papers": 5,
-        "receivers": [
-            "test@test.com"
-        ]
-    }
-]
+```yaml
+- topic: RecSys
+  query: (cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.IR) AND ("recommendation" OR "recommender")
+  num_papers: 5
+  receivers:
+    - test@test.com
 ```
 
 * `topic` is just a verbose title
@@ -32,10 +27,12 @@ Edit `config.json` file.
 
 ### Environment Setting
 
-Create a new `.env` file containing:
+Rename `.env.example` to `.env` and edit it.
 
-```
-OPENAI_MODEL=gpt-4o-mini
+The file contains the following variables:
+
+```txt
+LLM_MODEL=openai/gpt-4o-mini
 OPENAI_API_KEY=openai_api_key
 EMAIL_ADDRESS=sender_email@email.com
 EMAIL_PASSWORD=gmail_app_password
@@ -44,9 +41,25 @@ SMTP_PORT=587
 PAGE_LIMIT=8
 MAX_CONTENT_LENGTH=120000
 EVERYDAY_AT=08:00
+TIMEZONE=Asia/Seoul
 ```
 
-`EVERYDAY_AT` should consider timezone (see your server's setting).
+If you want to use claude instead of openai, set as follows:
+
+```txt
+LLM_MODEL=anthropic/claude-3-sonnet-20240229
+ANTHROPIC_API_KEY=anthropic_api_key    <-- This line changes!
+EMAIL_ADDRESS=sender_email@email.com
+EMAIL_PASSWORD=gmail_app_password
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+PAGE_LIMIT=8
+MAX_CONTENT_LENGTH=120000
+EVERYDAY_AT=08:00
+TIMEZONE=Asia/Seoul
+```
+
+For the other providers, please see litellm docs [litellm](https://docs.litellm.ai/docs/#litellm-python-sdk)
 
 ### Gmail App Password
 
@@ -63,6 +76,8 @@ See [API Keys](https://platform.openai.com/api-keys).
 ### Run:
 
 ```bash
+uv sync
+source .venv/bin/activate
 nohup python -u entry.py >> output.log 2>&1 &
 ```
 
@@ -70,4 +85,11 @@ To see logs:
 
 ```bash
 tail -f output.log
+```
+
+To use Docker:
+
+```bash
+docker build -t daily-paper-summary-digest .
+docker run -d --name daily-paper-summary-digest --env-file .env -p 587:587 -v $(pwd)/config.yaml:/app/config.yaml -v $(pwd)/templates/prompt.txt:/app/templates/prompt.txt daily-paper-summary-digest
 ```
