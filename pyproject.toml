@@ -1,18 +1,17 @@
 [project]
-name = "daily-paper-summary-digest"
+name = "summarxiv"
 version = "0.1.0"
-description = "A project for daily paper summary digest"
+description = "Daily latest arXiv paper summary digest."
+readme = "README.md"
 requires-python = ">=3.10"
-
 dependencies = [
     "arxiv",
     "requests",
     "schedule",
     "openai",
     "pypdf",
-    "email-validator",
-    "python-dotenv",
     "pyyaml",
-    "pytz>=2025.2",
     "litellm>=1.70.0",
+    "python-dotenv>=1.1.1",
+    "pytz>=2025.2",
 ]

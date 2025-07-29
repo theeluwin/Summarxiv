@@ -1,0 +1,13 @@
+.github/
+.venv/
+cache/
+logs/
+.dockerignore
+.env
+.env.sample
+.gitignore
+.python-version
+Dockerfile
+LICENSE
+nohup.out
+README.md

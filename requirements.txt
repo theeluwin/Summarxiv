@@ -1,9 +1,0 @@
-arxiv
-requests
-schedule
-openai
-pypdf
-email-validator
-python-dotenv
-pyyaml
-pytz
