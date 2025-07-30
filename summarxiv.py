@@ -186,7 +186,6 @@ class Summarxiv:
 
         # init stuffs
         self.init_logger()
-        self.init_smtp()
         self.init_client()
         self.init_config()
         self.init_templates()
@@ -227,17 +226,6 @@ class Summarxiv:
         self.logger.addHandler(stream_handler)
         self.logger.addHandler(file_handler)
 
-    def init_smtp(self):
-        self.email_server = smtplib.SMTP(
-            self.args.smtp_server,
-            self.args.smtp_port,
-        )
-        self.email_server.starttls()
-        self.email_server.login(
-            self.args.email_address,
-            self.args.email_password,
-        )
-
     def send_email(self, send_to, subject, body):
 
         # create message
@@ -248,11 +236,21 @@ class Summarxiv:
         message.attach(MIMEText(body, 'html'))
 
         # send email
-        self.email_server.sendmail(
+        smtp = smtplib.SMTP(
+            self.args.smtp_server,
+            self.args.smtp_port,
+        )
+        smtp.starttls()
+        smtp.login(
+            self.args.email_address,
+            self.args.email_password,
+        )
+        smtp.sendmail(
             self.args.email_address,
             send_to,
             message.as_string(),
         )
+        smtp.quit()
 
     def search_recent_papers(self, query, num_papers):
         search = arxiv.Search(
@@ -433,7 +431,7 @@ class Summarxiv:
             body += self.footer_template
 
             # send email
-            self.logger.info("- sending email")
+            self.logger.info("sending email")
             for receiver in receivers:
 
                 self.logger.info(f"- sending to {receiver}")
